@@ -151,15 +151,15 @@ PHP;
     protected function renderUpBody(CrudTable $table): string
     {
         $lines = [];
-        $lines[] = "            \$table->id();";
+        $lines[] = '            $table->id();';
         foreach ($table->columns as $column) {
             $lines = array_merge($lines, $this->renderColumn($column));
         }
         if ($table->softDeletes) {
-            $lines[] = "            \$table->softDeletes();";
+            $lines[] = '            $table->softDeletes();';
         }
         if ($table->timestamps) {
-            $lines[] = "            \$table->timestamps();";
+            $lines[] = '            $table->timestamps();';
         }
         return implode("\n", $lines);
     }
@@ -247,7 +247,7 @@ PHP;
     {
         if (is_array($col->options) && count($col->options) > 0) {
             $values = array_map(static fn($v) => var_export($v, true), $col->options);
-            return "enum('{$col->name}', [" . implode(', ', $values) . "])"; // will be embedded specially
+            return "enum('{$col->name}', [" . implode(', ', $values) . '])'; // will be embedded specially
         }
         return 'string';
     }
