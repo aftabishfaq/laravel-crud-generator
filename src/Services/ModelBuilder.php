@@ -112,7 +112,7 @@ class ModelBuilder
     protected function namespaceToPath(string $namespace): string
     {
         // Convert e.g., App\\Models to app/Models
-        $segments = explode('\\\', $namespace);
+        $segments = explode('\\\\', $namespace);
         $path = implode(DIRECTORY_SEPARATOR, $segments);
         // Assume PSR-4 base is project root; typical Laravel maps App\\ to app/
         if (str_starts_with($namespace, 'App\\')) {
