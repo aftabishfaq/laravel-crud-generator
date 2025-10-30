@@ -22,6 +22,11 @@ class MigrationBuilder
      * @param array<int, CrudTable> $tables
      * @return array<int, array{path:string, filename:string, contents:string}>
      */
+    /**
+     * @param array<int, CrudTable> $tables
+     * @param array<string, mixed> $options
+     * @return array<int, array{path:string, filename:string, contents:string}>
+     */
     public function buildMigrations(array $tables, array $options = []): array
     {
         $now = time();
@@ -44,6 +49,10 @@ class MigrationBuilder
     /**
      * Write migration files safely. If file exists and !force, adjust timestamp to avoid overwrite.
      * Returns array of written paths.
+     * @param array<int, array{path:string, filename:string, contents:string}> $migrations
+     * @return array<int, string>
+     */
+    /**
      * @param array<int, array{path:string, filename:string, contents:string}> $migrations
      * @return array<int, string>
      */
@@ -84,6 +93,9 @@ class MigrationBuilder
         return Artisan::call('migrate', $params);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     protected function resolveTargetDirectory(array $options): string
     {
         $configPath = (string) (config('crud.migrations_path') ?? 'database/migrations');
@@ -249,6 +261,9 @@ PHP;
         return $absPath;
     }
 
+    /**
+     * @param array<int, string> $paths
+     */
     protected function logGenerated(array $paths): void
     {
         if (empty($paths)) {

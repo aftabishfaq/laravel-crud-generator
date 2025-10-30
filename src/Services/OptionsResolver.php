@@ -30,6 +30,10 @@ class OptionsResolver
     /**
      * @return array<string, string>
      */
+    /**
+     * @param array<string, mixed> $conf
+     * @return array<string, string>
+     */
     protected function fromStatic(array $conf): array
     {
         $options = $conf['options'] ?? [];
@@ -51,6 +55,10 @@ class OptionsResolver
     /**
      * @return array<string, string>
      */
+    /**
+     * @param array<string, mixed> $conf
+     * @return array<string, string>
+     */
     protected function fromTable(array $conf): array
     {
         $table = (string) ($conf['table'] ?? '');
@@ -66,6 +74,10 @@ class OptionsResolver
     }
 
     /**
+     * @return array<string, string>
+     */
+    /**
+     * @param array<string, mixed> $conf
      * @return array<string, string>
      */
     protected function fromApi(array $conf): array

@@ -49,10 +49,9 @@ class CrudHelper
         try {
             $conn = DB::connection();
             if (method_exists($conn, 'getDoctrineSchemaManager')) {
-                /** @var object $schema */
-                $schema = $conn->getDoctrineSchemaManager(); // @phpstan-ignore-line
-                foreach ($schema->listTableColumns($table) as $col) { // @phpstan-ignore-line
-                    $map[$col->getName()] = $col->getType()->getName(); // @phpstan-ignore-line
+                $schema = $conn->getDoctrineSchemaManager();
+                foreach ($schema->listTableColumns($table) as $col) {
+                    $map[$col->getName()] = $col->getType()->getName();
                 }
             }
         } catch (\Throwable $e) {
@@ -114,6 +113,10 @@ class CrudHelper
     /**
      * Sanitize sort inputs.
      * @param array<int, string> $columns
+     */
+    /**
+     * @param array<int, string> $columns
+     * @return array{0:string,1:string}
      */
     public static function sanitizeSort(?string $sort, ?string $dir, array $columns): array
     {

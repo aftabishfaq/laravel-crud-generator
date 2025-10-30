@@ -78,6 +78,9 @@ class CrudExecuteCommand extends Command
         return self::SUCCESS;
     }
 
+    /**
+     * @param array<string, mixed> $schema
+     */
     protected function renderSummary(array $schema): void
     {
         $tables = $schema['tables'] ?? [];
@@ -108,6 +111,9 @@ class CrudExecuteCommand extends Command
         }
     }
 
+    /**
+     * @param array<string, mixed> $schema
+     */
     protected function generateMigrationsFlow(array $schema): void
     {
         $mapper = new \Aftab\LaravelCrud\Services\CrudModelMapper();
@@ -134,6 +140,9 @@ class CrudExecuteCommand extends Command
         $this->info('Artisan migrate exit code: ' . $code);
     }
 
+    /**
+     * @param array<string, mixed> $schema
+     */
     protected function generateModelsFlow(array $schema): void
     {
         $mapper = new \Aftab\LaravelCrud\Services\CrudModelMapper();

@@ -9,6 +9,7 @@ use Aftab\LaravelCrud\Services\Dto\CrudTable;
 class CrudModelMapper
 {
     /**
+     * @param array<string, mixed> $schema
      * @return array<int, CrudTable>
      */
     public function map(array $schema): array
@@ -21,6 +22,9 @@ class CrudModelMapper
         return $result;
     }
 
+    /**
+     * @param array<string, mixed> $table
+     */
     protected function mapTable(array $table): CrudTable
     {
         $name = (string) ($table['name'] ?? '');
@@ -62,6 +66,9 @@ class CrudModelMapper
         );
     }
 
+    /**
+     * @param array<string, mixed> $col
+     */
     protected function mapColumn(array $col): CrudColumn
     {
         $name = (string) ($col['name'] ?? '');
@@ -110,6 +117,9 @@ class CrudModelMapper
         );
     }
 
+    /**
+     * @param array<string, mixed> $rel
+     */
     protected function mapRelationship(array $rel): CrudRelationship
     {
         $type = (string) ($rel['type'] ?? 'belongsTo');

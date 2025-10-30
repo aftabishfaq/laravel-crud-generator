@@ -20,6 +20,10 @@ class CrudValidator
         'decimal' => true, 'float' => true,
     ];
 
+    /**
+     * @param array<string, mixed> $schema
+     * @return array{valid: bool, errors: array<int, string>}
+     */
     public function validate(array $schema): array
     {
         $errors = [];
@@ -40,6 +44,10 @@ class CrudValidator
         ];
     }
 
+    /**
+     * @param array<string, mixed> $table
+     * @param array<int, string> $errors
+     */
     protected function validateTable(array $table, string $prefix, array &$errors): void
     {
         if (!is_array($table)) {
@@ -77,6 +85,10 @@ class CrudValidator
         }
     }
 
+    /**
+     * @param array<string, mixed> $column
+     * @param array<int, string> $errors
+     */
     protected function validateColumn(array $column, string $prefix, array &$errors): void
     {
         if (!is_array($column)) {
@@ -117,6 +129,10 @@ class CrudValidator
         }
     }
 
+    /**
+     * @param array<string, mixed> $rel
+     * @param array<int, string> $errors
+     */
     protected function validateRelationship(array $rel, string $prefix, array &$errors): void
     {
         if (!is_array($rel)) {

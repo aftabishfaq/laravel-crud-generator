@@ -18,6 +18,7 @@ class ModelBuilder
 
     /**
      * @param array<int, CrudTable> $tables
+     * @param array<string, mixed> $options
      * @return array<int, array{path:string, filename:string, contents:string}>
      */
     public function buildModels(array $tables, array $options = []): array
@@ -82,6 +83,9 @@ class ModelBuilder
         }));
     }
 
+    /**
+     * @param array<int, string> $fillable
+     */
     protected function renderModel(string $namespace, string $class, string $table, array $fillable): string
     {
         $fillableExport = '';
@@ -90,28 +94,25 @@ class ModelBuilder
             $fillableExport = "\n    protected \\$fillable = [{$fillableList}];\n";
         }
 
-        return <<<PHP
-<?php
-
-namespace {$namespace};
-
-use Illuminate\\Database\\Eloquent\\Model;
-use Illuminate\\Database\\Eloquent\\SoftDeletes;
-
-class {$class} extends Model
-{
-    // Set table explicitly to avoid naming surprises
-    protected \\$table = '{$table}';
-{$fillableExport}    protected \\$guarded = [];
-}
-PHP;
+        $code = '';
+        $code .= "<?php\n\n";
+        $code .= 'namespace ' . $namespace . ";\n\n";
+        $code .= "use Illuminate\\\\Database\\\\Eloquent\\\\Model;\n";
+        $code .= "use Illuminate\\\\Database\\\\Eloquent\\\\SoftDeletes;\n\n";
+        $code .= 'class ' . $class . ' extends Model' . "\n";
+        $code .= "{\n";
+        $code .= "    // Set table explicitly to avoid naming surprises\n";
+        $code .= "    protected \\$table = '{$table}';\n";
+        $code .= $fillableExport;
+        $code .= "    protected \\$guarded = [];\n";
+        $code .= "}\n";
+        return $code;
     }
 
     protected function namespaceToPath(string $namespace): string
     {
         // Convert e.g., App\\Models to app/Models
-        $segments = explode('\\\
-', $namespace);
+        $segments = explode('\\\', $namespace);
         $path = implode(DIRECTORY_SEPARATOR, $segments);
         // Assume PSR-4 base is project root; typical Laravel maps App\\ to app/
         if (str_starts_with($namespace, 'App\\')) {

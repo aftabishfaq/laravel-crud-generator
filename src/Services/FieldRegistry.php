@@ -7,6 +7,9 @@ class FieldRegistry
     /** @var array<string, string> */
     protected array $renderers;
 
+    /**
+     * @param array<string, string> $renderers
+     */
     public function __construct(array $renderers = [])
     {
         // map of logical field type => blade include path

@@ -8,12 +8,18 @@ use JsonException;
 
 class CrudParser
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function parseInput(string $input, ?string $format = null): array
     {
         $format = $format ? strtolower($format) : $this->detectFormatFromString($input);
         return $this->parseByFormat($input, $format);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function parseFile(string $path): array
     {
         if (!is_file($path)) {
@@ -24,6 +30,9 @@ class CrudParser
         return $this->parseByFormat((string) $contents, $format, $path);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function parseByFormat(string $contents, string $format, ?string $path = null): array
     {
         if ($format === 'json') {

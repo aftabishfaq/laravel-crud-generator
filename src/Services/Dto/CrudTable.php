@@ -19,6 +19,11 @@ class CrudTable
     public ?array $middleware;
     public ?string $controller;
 
+    /**
+     * @param array<int, CrudColumn> $columns
+     * @param array<int, CrudRelationship> $relationships
+     * @param array<int, string>|null $middleware
+     */
     public function __construct(
         string $name,
         ?string $displayName,
