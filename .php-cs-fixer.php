@@ -9,11 +9,11 @@ $finder = PhpCsFixer\Finder::create()
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PSR12' => true,
+        // Minimal, non-intrusive rules for package repos
         'array_syntax' => ['syntax' => 'short'],
         'no_unused_imports' => true,
         'single_quote' => true,
-        'binary_operator_spaces' => ['default' => 'align_single_space_minimal'],
+        'binary_operator_spaces' => ['default' => 'single_space'],
     ])
     ->setFinder($finder);
 
