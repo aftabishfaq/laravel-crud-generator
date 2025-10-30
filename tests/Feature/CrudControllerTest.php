@@ -17,6 +17,9 @@ class CrudControllerTest extends TestCase
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        // App key for encryption middleware/session
+        $app['config']->set('app.cipher', 'AES-256-CBC');
+        $app['config']->set('app.key', 'base64:' . base64_encode(random_bytes(32)));
         $app['config']->set('crud.allowed_tables', ['users']);
     }
 
