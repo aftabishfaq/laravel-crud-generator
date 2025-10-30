@@ -5,20 +5,24 @@ namespace Aftab\LaravelCrud\Http\Controllers;
 use Aftab\LaravelCrud\Helpers\CrudHelper;
 use Aftab\LaravelCrud\Models\DynamicModel;
 use Aftab\LaravelCrud\Services\OptionsResolver;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Gate;
 
 class CrudController extends BaseController
 {
-    public function index(Request $request, string $table)
+    public function index(Request $request, string $table): View
     {
         $this->guardTable($table);
         $columns = CrudHelper::tableColumns($table);
         $types = CrudHelper::columnTypes($table);
 
         [$sort, $dir] = CrudHelper::sanitizeSort($request->query('sort'), $request->query('dir'), $columns);
-        $query = (new DynamicModel())->setTable($table)::query();
+        $model = new DynamicModel();
+        $model->setTableName($table);
+        $query = $model->newQuery();
         $query->orderBy($sort, $dir);
 
         if ($q = $request->query('q')) {
@@ -29,13 +33,13 @@ class CrudController extends BaseController
             });
         }
 
-        $perPage = (int) ($request->query('per_page', 15));
+        $perPage = (int) ($request->query('per_page', '15'));
         $records = $query->paginate($perPage)->appends($request->query());
 
         return view('crud::list', compact('table', 'columns', 'records', 'sort', 'dir', 'types'));
     }
 
-    public function create(string $table)
+    public function create(string $table): View
     {
         $this->guardTable($table);
         $columns = CrudHelper::tableColumns($table);
@@ -51,11 +55,11 @@ class CrudController extends BaseController
         ]);
     }
 
-    public function store(Request $request, string $table)
+    public function store(Request $request, string $table): RedirectResponse
     {
         $this->guardTable($table);
         $rules = CrudHelper::inferredValidation($table, false);
-        $data = $this->validate($request, $rules);
+        $data = $request->validate($rules);
         $data = CrudHelper::processUploads($request, $table, $data);
 
         $model = new DynamicModel();
@@ -68,7 +72,7 @@ class CrudController extends BaseController
         return redirect()->route('crud.index', ['table' => $table])->with('status', 'Created');
     }
 
-    public function edit(string $table, $id)
+    public function edit(string $table, int|string $id): View
     {
         $this->guardTable($table);
         $columns = CrudHelper::tableColumns($table);
@@ -87,7 +91,7 @@ class CrudController extends BaseController
         ]);
     }
 
-    public function show(string $table, $id)
+    public function show(string $table, int|string $id): View
     {
         $this->guardTable($table);
         $columns = CrudHelper::tableColumns($table);
@@ -97,11 +101,11 @@ class CrudController extends BaseController
         return view('crud::view', compact('table', 'columns', 'record'));
     }
 
-    public function update(Request $request, string $table, $id)
+    public function update(Request $request, string $table, int|string $id): RedirectResponse
     {
         $this->guardTable($table);
         $rules = CrudHelper::inferredValidation($table, true);
-        $data = $this->validate($request, $rules);
+        $data = $request->validate($rules);
         $data = CrudHelper::processUploads($request, $table, $data);
 
         $model = (new DynamicModel());
@@ -115,7 +119,7 @@ class CrudController extends BaseController
         return redirect()->route('crud.index', ['table' => $table])->with('status', 'Updated');
     }
 
-    public function destroy(string $table, $id)
+    public function destroy(string $table, int|string $id): RedirectResponse
     {
         $this->guardTable($table);
         $model = (new DynamicModel());

@@ -48,9 +48,12 @@ class CrudHelper
         $map = [];
         try {
             $conn = DB::connection();
-            $schema = $conn->getDoctrineSchemaManager();
-            foreach ($schema->listTableColumns($table) as $col) {
-                $map[$col->getName()] = $col->getType()->getName();
+            if (method_exists($conn, 'getDoctrineSchemaManager')) {
+                /** @var object $schema */
+                $schema = $conn->getDoctrineSchemaManager(); // @phpstan-ignore-line
+                foreach ($schema->listTableColumns($table) as $col) { // @phpstan-ignore-line
+                    $map[$col->getName()] = $col->getType()->getName(); // @phpstan-ignore-line
+                }
             }
         } catch (\Throwable $e) {
         }
