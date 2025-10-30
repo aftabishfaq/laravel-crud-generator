@@ -20,7 +20,7 @@ php artisan vendor:publish --tag=crud-views
 
 ### Quickstart
 
-Create `crud.yaml` at your project root:
+Create `crud.yaml` at your project root (or use JSON: see `examples/crud.json`):
 ```yaml
 tables:
   - name: users

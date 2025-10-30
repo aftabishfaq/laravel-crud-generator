@@ -1,13 +1,13 @@
 <?php
 
 return [
-    // URL prefix for generated or dynamic CRUD routes
+    // URL prefix for generated or dynamic CRUD routes (affects routes/crud.php)
     'route_prefix' => 'crud',
 
-    // Middleware stack applied to CRUD routes
+    // Middleware applied to CRUD routes (e.g. add throttle here for rate limiting)
     'middleware' => ['web'],
 
-    // Default namespace where generated models will live
+    // Default namespace where generated models will be written in --generate mode
     'models_namespace' => 'App\\Models',
 
     // Relative path (from project root) where generated migrations will be written
@@ -16,7 +16,7 @@ return [
     // Relative path (from project root) where views will be published/overridden
     'views_path' => 'resources/views/vendor/laravel-crud',
 
-    // If true, run migrations automatically after generation
+    // If true, run migrations automatically after generation (prefer using CLI --migrate)
     'auto_migrate' => false,
 
     // If true, do not write files; only simulate and preview planned changes
@@ -39,7 +39,7 @@ return [
         'fields' => [],
     ],
 
-    // Field sources for dropdowns/selects per table.column
+    // Field sources for dropdowns/selects per table.column (used by OptionsResolver)
     // Example entries:
     // 'field_sources' => [
     //   'users.group_id' => ['type' => 'table', 'table' => 'groups', 'value' => 'id', 'label' => 'name'],
@@ -47,7 +47,7 @@ return [
     //   'users.country' => ['type' => 'api', 'callback' => '\\App\\Support\\OptionCallbacks::countries']
     // ]
     'field_sources' => [],
-    // For security, API callbacks are disabled by default. Enable with caution.
+    // For security, API callbacks are disabled by default. Enable with caution; ensure callbacks are audited and trusted.
     'field_sources_allow_api_callbacks' => false,
 
     // Permissions integration
@@ -66,7 +66,7 @@ return [
         ],
     ],
 
-    // Auditing: set user id on created_by/updated_by if columns exist
+    // Auditing: set user id on created_by/updated_by if columns exist (controller layer)
     'audit' => [
         'enabled' => false,
         'created_by' => 'created_by',
