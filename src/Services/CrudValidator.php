@@ -40,7 +40,7 @@ class CrudValidator
         ];
     }
 
-    protected function validateTable($table, string $prefix, array &$errors): void
+    protected function validateTable(array $table, string $prefix, array &$errors): void
     {
         if (!is_array($table)) {
             $errors[] = "{$prefix} must be an object.";
@@ -77,7 +77,7 @@ class CrudValidator
         }
     }
 
-    protected function validateColumn($column, string $prefix, array &$errors): void
+    protected function validateColumn(array $column, string $prefix, array &$errors): void
     {
         if (!is_array($column)) {
             $errors[] = "{$prefix} must be an object.";
@@ -117,7 +117,7 @@ class CrudValidator
         }
     }
 
-    protected function validateRelationship($rel, string $prefix, array &$errors): void
+    protected function validateRelationship(array $rel, string $prefix, array &$errors): void
     {
         if (!is_array($rel)) {
             $errors[] = "{$prefix} must be an object.";
@@ -134,7 +134,7 @@ class CrudValidator
         }
     }
 
-    protected function isSafeIdentifier($value): bool
+    protected function isSafeIdentifier(mixed $value): bool
     {
         if (!is_string($value) || $value === '') {
             return false;

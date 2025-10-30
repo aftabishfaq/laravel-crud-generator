@@ -84,7 +84,11 @@ class ModelBuilder
 
     protected function renderModel(string $namespace, string $class, string $table, array $fillable): string
     {
-        $fillableExport = empty($fillable) ? '' : "\n    protected $fillable = [" . implode(', ', array_map(static fn($f) => '\'' . $f . '\'', $fillable)) . "];\n";
+        $fillableExport = '';
+        if (!empty($fillable)) {
+            $fillableList = implode(', ', array_map(static fn($f) => '\'' . $f . '\'', $fillable));
+            $fillableExport = "\n    protected \\$fillable = [{$fillableList}];\n";
+        }
 
         return <<<PHP
 <?php

@@ -3,8 +3,6 @@ parameters:
   paths:
     - src
     - tests
-  checkMissingIterableValueType: false
-  ignoreErrors:
-    - '#Call to an undefined method.+newQuery#'
+  # Note: prefer adding precise types over suppressing
 
 

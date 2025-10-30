@@ -4,6 +4,7 @@ namespace Aftab\LaravelCrud\Tests\Feature;
 
 use Aftab\LaravelCrud\Tests\TestCase;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Schema\Blueprint;
 
 class CrudControllerTest extends TestCase
@@ -28,7 +29,7 @@ class CrudControllerTest extends TestCase
             $table->timestamps();
         });
         // Seed a row
-        \DB::table('users')->insert(['name' => 'Alice', 'created_at' => now(), 'updated_at' => now()]);
+        DB::table('users')->insert(['name' => 'Alice', 'created_at' => now(), 'updated_at' => now()]);
     }
 
     public function test_index_route_loads(): void
