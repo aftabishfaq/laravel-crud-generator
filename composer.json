@@ -1,0 +1,44 @@
+{
+    "name": "aftab/laravel-crud",
+    "description": "A package to create simple crud operations",
+    "type": "library",
+    "require": {
+        "illuminate/support": "^12.36",
+        "illuminate/database": "^12.36",
+        "illuminate/console": "^12.36",
+        "illuminate/filesystem": "^12.36",
+        "illuminate/view": "^12.36",
+        "symfony/yaml": "^7.3",
+        "illuminate/routing": "^12.36",
+        "illuminate/http": "^12.36"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Aftab\\LaravelCrud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aftab Ishfaq"
+        }
+    ],
+    "minimum-stability": "stable"
+  ,
+  "require-dev": {
+    "orchestra/testbench": "^9.0",
+    "phpunit/phpunit": "^11.0",
+    "phpstan/phpstan": "^1.11",
+    "friendsofphp/php-cs-fixer": "^3.64"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Aftab\\LaravelCrud\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit -c phpunit.xml.dist",
+    "analyse": "phpstan analyse -c phpstan.neon.dist",
+    "lint": "php-cs-fixer fix --dry-run --diff"
+  }
+}

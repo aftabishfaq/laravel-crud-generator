@@ -1,0 +1,27 @@
+tables:
+  - name: groups
+    display_name: Groups
+    columns:
+      - { name: name, type: string, validation: "string|max:100" }
+  - name: users
+    display_name: Users
+    timestamps: true
+    soft_deletes: true
+    columns:
+      - { name: name, type: string, validation: "string|max:255" }
+      - { name: email, type: string, unique: true, validation: "email|max:255" }
+      - name: group_id
+        type: unsignedBigInteger
+        label: Group
+        input_type: dropdown
+        required: true
+        foreign:
+          table: groups
+          column: id
+          on_delete: cascade
+      - { name: status, type: enum, options: [active, inactive], default: active }
+    relationships:
+      - { type: belongsTo, model: Group, foreign_key: group_id }
+    routes:
+      prefix: /users
+      middleware: [web]
