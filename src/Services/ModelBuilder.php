@@ -2,7 +2,6 @@
 
 namespace Aftab\LaravelCrud\Services;
 
-use Aftab\LaravelCrud\Services\Dto\CrudColumn;
 use Aftab\LaravelCrud\Services\Dto\CrudTable;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
