@@ -91,7 +91,7 @@ class ModelBuilder
         $fillableExport = '';
         if (!empty($fillable)) {
             $fillableList = implode(', ', array_map(static fn($f) => '\'' . $f . '\'', $fillable));
-            $fillableExport = "\n    protected \\$fillable = [{$fillableList}];\n";
+            $fillableExport = "\n    protected \$fillable = [{$fillableList}];\n";
         }
 
         $code = '';
@@ -102,9 +102,9 @@ class ModelBuilder
         $code .= 'class ' . $class . ' extends Model' . "\n";
         $code .= "{\n";
         $code .= "    // Set table explicitly to avoid naming surprises\n";
-        $code .= "    protected \\$table = '{$table}';\n";
+        $code .= "    protected \$table = '" . addslashes($table) . "';\n";
         $code .= $fillableExport;
-        $code .= "    protected \\$guarded = [];\n";
+        $code .= "    protected \$guarded = [];\n";
         $code .= "}\n";
         return $code;
     }

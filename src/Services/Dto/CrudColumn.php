@@ -20,6 +20,10 @@ class CrudColumn
     public ?array $options; // for enums/static options
     public ?string $optionsSource; // e.g., 'table:groups'
 
+    /**
+     * @param array<int, string>|null $validationRules
+     * @param array<int|string, mixed>|null $options
+     */
     public function __construct(
         string $name,
         string $type,
@@ -28,12 +32,10 @@ class CrudColumn
         bool $isNullable = false,
         bool $isUnique = false,
         mixed $defaultValue = null,
-        /** @var array<int, string>|null $validationRules */
         ?array $validationRules = null,
         ?string $foreignTable = null,
         ?string $foreignColumn = null,
         ?string $onDelete = null,
-        /** @var array<int|string, mixed>|null $options */
         ?array $options = null,
         ?string $optionsSource = null,
     ) {
